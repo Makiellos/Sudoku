@@ -1,9 +1,9 @@
 object NewGameForm: TNewGameForm
-  Left = 314
-  Top = 211
+  Left = 298
+  Top = 141
+  Width = 791
+  Height = 483
   Caption = 'NewGameForm'
-  ClientHeight = 427
-  ClientWidth = 773
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object NewGameForm: TNewGameForm
   object NGFieldPic: TImage
     Left = 0
     Top = 0
-    Width = 773
-    Height = 427
+    Width = 775
+    Height = 444
     Align = alClient
     Picture.Data = {
       0A544A504547496D61676588280100FFD8FFE000104A46494600010100000100
@@ -2394,8 +2394,6 @@ object NewGameForm: TNewGameForm
       A40188984801200801191080408080305008032432402005A2586201120A4120
       02C1B108014161200AD100401AC34500803586B00801B1004008E82400102400
       110A4009004018242010202005100401AE06C0403FFFD9}
-    ExplicitWidth = 775
-    ExplicitHeight = 435
   end
   object NewSudokuGrid: TStringGrid
     Left = 32
@@ -2410,25 +2408,5 @@ object NewGameForm: TNewGameForm
     FixedRows = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
     TabOrder = 0
-    ColWidths = (
-      40
-      40
-      40
-      40
-      40
-      40
-      40
-      40
-      40)
-    RowHeights = (
-      40
-      40
-      40
-      40
-      40
-      40
-      40
-      40
-      40)
   end
 end
