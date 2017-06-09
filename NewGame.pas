@@ -142,7 +142,7 @@ begin
   end;
 end;
 
-procedure Transposing();
+procedure Transposing;
 var
   i, j: Integer;
   temp: string;
@@ -167,42 +167,34 @@ begin
   Image := TImage.Create(Self);
   Image.Parent := NewsudokuGrid;
   Image.Picture.LoadFromFile('Kvadrat-150x150.png');
-  Image.Left := (ACol * 41) {+ ACol};
-  Image.Top := (ARow * 41) {+ ARow};
+  Image.Left := (ACol * 41);
+  Image.Top := (ARow * 41);
   Image.Width := 41;
   Image.Height := 41;
-  //x := Image.Left + 1;
-  //y := Image.Top + 1;
   Image.Stretch := true;
   Image.Transparent := true;
+end;
 
-  //with Image.Canvas do
- // begin
- //   Brush.Color:=clBlack;
-  //  FrameRect(Rect((ACol * 41) + ACol, (ARow * 41) + ARow, (ACol * 41) + ACol + 41, (ARow * 41) + ARow + 41));
- // end;
-    //Image.Canvas.Brush.Color := clRed;
-   // Image.Canvas.Brush.Style := bsSolid;
-   // Image.Canvas.Brush.Width := 3;
-    //Image.Canvas.Rectangle((ACol * 41) + ACol, (ARow * 41) + ARow, (ACol * 41) + ACol + 41, (ARow * 41) + ARow + 41);
-   // Image.Transparent := true;
-
-//  Image.Canvas.Pen.Color := clBlack;
-//  Image.Canvas.Brush.Color := clBlack;
-//  Image.Canvas.Brush.Style := bsSolid;
-//  with Image.Canvas do
-//  begin
-//    MoveTo(x, y);
-//    LineTo(x + 50, y + 50);
-//  end;
-////  Image.Canvas.Pen.Width := 3;
-//  Image.Canvas.FillRect(Rect(x, y, x + 50, y + 50));
-
-//  //Point.Left:=24+ACol*40;
-//  //Point.Right:=32+(ACol+1)*40;
-//  NewGameForm.NewSudokuGrid.Canvas.FillRect(Rect(32+ACol*40, 24+ARow*40, 32+(ACol+1)*40, 24+(ARow+1)*40));
-//  With NewGameForm.NewSudokuGrid do
-//  NewGameForm.NewSudokuGrid.Canvas.TextOut(52+ACol*40, 44+ARow*40, Cells[ACol, ARow]);
+procedure RandomHide(Col, Row, diff, count: integer);
+var
+  tempCount, tempCol, tempRow, i, j: Integer;
+begin
+  tempCount := 0;
+  for i:=Col to Col+2 do
+  begin
+    for j:=Row to Row+2 do
+    begin
+      Randomize;
+      tempCol := RandomRange(Col,Col+1);
+      tempRow := RandomRange(Row,Row+1);
+      if (diff>0) and (tempCount < count)  then
+      begin
+        NewSudokuGridDrawCell(tempCol, tempRow);
+        dec(diff);
+        inc(tempCount);
+      end;
+    end;
+  end;
 end;
 
 procedure HideCells;
@@ -227,132 +219,18 @@ begin
   end;
 
   repeat
-    tempCount := 0;
-    for i:=0 to 2 do
-    begin
-      for j:=0 to 2 do
-        tempCol := RandomRange(0,3);
-        tempRow := RandomRange(0,3);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
+    RandomHide(0,0,diff,count);
+    RandomHide(0,3,diff,count);
+    RandomHide(0,6,diff,count);
 
-    tempCount := 0;
-    for i:=0 to 2 do
-    begin
-      for j:=3 to 5 do
-        tempCol := RandomRange(0,2);
-        tempRow := RandomRange(3,5);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
+    RandomHide(3,0,diff,count);
+    RandomHide(3,3,diff,count);
+    RandomHide(3,6,diff,count);
 
-    tempCount := 0;
-    for i:=0 to 2 do
-    begin
-      for j:=6 to 8 do
-        tempCol := RandomRange(0,2);
-        tempRow := RandomRange(6,8);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-
-    tempCount := 0;
-    for i:=3 to 5 do
-    begin
-      for j:=0 to 2 do
-        tempCol := RandomRange(3,5);
-        tempRow := RandomRange(0,2);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-
-    tempCount := 0;
-    for i:=3 to 5 do
-    begin
-      for j:=3 to 5 do
-        tempCol := RandomRange(3,5);
-        tempRow := RandomRange(3,5);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-
-    tempCount := 0;
-    for i:=3 to 5 do
-    begin
-      for j:=6 to 8 do
-        tempCol := RandomRange(3,5);
-        tempRow := RandomRange(6,8);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-
-    tempCount := 0;
-    for i:=6 to 8 do
-    begin
-      for j:=0 to 2 do
-        tempCol := RandomRange(6,8);
-        tempRow := RandomRange(0,2);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-
-    tempCount := 0;
-    for i:=6 to 8 do
-    begin
-      for j:=3 to 5 do
-        tempCol := RandomRange(6,8);
-        tempRow := RandomRange(3,5);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-
-    tempCount := 0;
-    for i:=6 to 8 do
-    begin
-      for j:=6 to 8 do
-        tempCol := RandomRange(6,8);
-        tempRow := RandomRange(6,8);
-        if (diff>0) and (tempCount < count)  then
-        begin
-          NewSudokuGridDrawCell(tempCol, tempRow);
-          dec(diff);
-          inc(tempCount);
-        end;
-    end;
-  until diff>0;
+    RandomHide(6,0,diff,count);
+    RandomHide(6,3,diff,count);
+    RandomHide(6,6,diff,count);
+  until diff<0;
 
 end;
 

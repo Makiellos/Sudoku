@@ -3,7 +3,6 @@ object SignLogForm: TSignLogForm
   Top = 273
   Width = 431
   Height = 465
-  Caption = 'jq cer'
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
