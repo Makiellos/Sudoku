@@ -1,6 +1,6 @@
 object NewGameForm: TNewGameForm
-  Left = 298
-  Top = 141
+  Left = 382
+  Top = 309
   Width = 791
   Height = 483
   Caption = 'NewGameForm'

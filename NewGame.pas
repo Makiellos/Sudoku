@@ -11,7 +11,6 @@ type
     NewSudokuGrid: TStringGrid;
     NGFieldPic: TImage;
     procedure FormShow(Sender: TObject);
-    //ocedure NewSudokuGridDrawCell(Sender: TObject; ACol, ARow: Integer);
   private
     { Private declarations }
   public
@@ -28,7 +27,8 @@ uses
 
 {$R *.dfm}
 
-procedure BasicRowGenetate(Sender: TObject);
+procedure TNewGameForm.FormShow(Sender: TObject);
+procedure BasicRowGenetate();
 var i, k, temp: Integer;
 begin
   with NewGameForm.NewSudokuGrid do
@@ -44,7 +44,7 @@ begin
     end;
 end;
 
-procedure NewNextRow(j: integer; Sender: TObject);
+procedure NewNextRow(j: integer);
 var
   i, k, n: integer;
 begin
@@ -65,7 +65,7 @@ begin
     Cells[n+i,j] := Cells[k+i,j-1];
 end;
 
-procedure NewRow (j,r: integer; Sender: TObject);
+procedure NewRow (j,r: integer);
 var
   i, k, p: integer;
 begin
@@ -80,7 +80,7 @@ begin
     end;
 end;
 
-procedure SwapRows(FRow, SRow: integer; Sender: TObject);
+procedure SwapRows(FRow, SRow: integer);
 var
   i: integer;
   temp: string;
@@ -94,7 +94,7 @@ begin
   end;
 end;
 
-procedure SwapCols(FCol, SCol: integer; Sender: TObject);
+procedure SwapCols(FCol, SCol: integer);
 var
   j: integer;
   temp: string;
@@ -108,7 +108,7 @@ begin
   end;
 end;
 
-procedure SwapTripleRows(FRow, SRow: integer; Sender: TObject);
+procedure SwapTripleRows(FRow, SRow: integer);
 var
   i, k: integer;
   temp: string;
@@ -125,7 +125,7 @@ begin
   end
 end;
 
-procedure SwapTripleCols(FCol, SCol: integer; Sender: TObject);
+procedure SwapTripleCols(FCol, SCol: integer);
 var
   j, k: integer;
   temp: string;
@@ -142,7 +142,7 @@ begin
   end;
 end;
 
-procedure Transposing(Sender: TObject);
+procedure Transposing();
 var
   i, j: Integer;
   temp: string;
@@ -156,36 +156,59 @@ begin
         Cells[i,j] := Cells[j,i];
         Cells[j,i] := temp;
       end;
-
   end;
 end;
 
-procedure NewSudokuGridDrawCell(Sender: TObject; ACol, ARow: Integer);
-//type
-  //TRect = record
-   // Left, Right: Integer;
-  //end;
-//var
-  //Point: TRect;
+procedure NewSudokuGridDrawCell(ACol, ARow: Integer);
+var
+  Image: TImage;
+  x, y: integer;
 begin
-  //NewGameForm.NewSudokuGrid.Canvas.Brush.Color := clRed;
-  //NewGameForm.NewSudokuGrid.Canvas.Rectangle(32+ACol*40, 24+ARow*40, 32+(ACol+1)*40, 24+(ARow+1)*40);
-  //Point.Left:=24+ACol*40;
-  //Point.Right:=32+(ACol+1)*40;
-  //NewGameForm.NewSudokuGrid.Canvas.FillRect(Rect(ACol*40, ARow*40, (ACol+1)*40, (ARow+1)*40));
-  //With NewGameForm.NewSudokuGrid do
-  //NewGameForm.NewSudokuGrid.Canvas.TextOut(20+ACol*40, 20+ARow*40, Cells[ACol, ARow]);
+  with NewGameForm.NewSudokuGrid.Canvas do
+  begin
+    Canvas.Pen.Color := clRed;
+    Canvas.Brush.Style := bsClear;
+    Canvas.Pen.Width := 3;
+    Canvas.Rectangle((ACol * 41) + ACol, (ARow * 41) + ARow, (ACol * 41) + ACol + 41, (ARow * 41) + ARow + 41);
+  end;
+  Image := TImage.Create(Self);
+  Image.Parent := NewsudokuGrid;
+  Image.Picture.LoadFromFile('ph.jpg');
+  Image.Left := (ACol * 41) {+ ACol};
+  Image.Top := (ARow * 41) {+ ARow};
+  Image.Width := 41;
+  Image.Height := 41;
+  //x := Image.Left + 1;
+  //y := Image.Top + 1;
+  Image.Stretch := true;
+//    Image.Transparent := true;
+//  Image.Canvas.Pen.Color := clBlack;
+//  Image.Canvas.Brush.Color := clBlack;
+//  Image.Canvas.Brush.Style := bsSolid;
+//  with Image.Canvas do
+//  begin
+//    MoveTo(x, y);
+//    LineTo(x + 50, y + 50);
+//  end;
+////  Image.Canvas.Pen.Width := 3;
+//  Image.Canvas.FillRect(Rect(x, y, x + 50, y + 50));
+
+//  //Point.Left:=24+ACol*40;
+//  //Point.Right:=32+(ACol+1)*40;
+//  NewGameForm.NewSudokuGrid.Canvas.FillRect(Rect(32+ACol*40, 24+ARow*40, 32+(ACol+1)*40, 24+(ARow+1)*40));
+//  With NewGameForm.NewSudokuGrid do
+//  NewGameForm.NewSudokuGrid.Canvas.TextOut(52+ACol*40, 44+ARow*40, Cells[ACol, ARow]);
 end;
 
-procedure HideCells(Sender: TObject);
+procedure HideCells;
 var
   diff, temp, i, j, tempCol, tempRow, count, tempCount: Integer;
 begin
   diff:=0;
   if DifficultyLvlForm.DiffEasy then
   begin
-    diff:=18;
-    count:=2;
+    diff:=63;
+    count:=7;
   end;
   if DifficultyLvlForm.DiffMedium then
   begin
@@ -197,21 +220,138 @@ begin
     diff:=29;
     count:=4;
   end;
-  tempCount := 0;
-  for i:=0 to 3 do
-  begin
-    for j:=0 to 3 do
-      tempCol := RandomRange(0,3);
-      tempRow := RandomRange(0,3);
-      if (diff>0) and (tempCount < count)  then
-      begin
-        NewSudokuGridDrawCell(NewGameForm, tempCol, tempRow);
-        //dec ()
-      end;
-  end;
+
+  repeat
+    tempCount := 0;
+    for i:=0 to 2 do
+    begin
+      for j:=0 to 2 do
+        tempCol := RandomRange(0,3);
+        tempRow := RandomRange(0,3);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=0 to 2 do
+    begin
+      for j:=3 to 5 do
+        tempCol := RandomRange(0,2);
+        tempRow := RandomRange(3,5);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=0 to 2 do
+    begin
+      for j:=6 to 8 do
+        tempCol := RandomRange(0,2);
+        tempRow := RandomRange(6,8);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=3 to 5 do
+    begin
+      for j:=0 to 2 do
+        tempCol := RandomRange(3,5);
+        tempRow := RandomRange(0,2);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=3 to 5 do
+    begin
+      for j:=3 to 5 do
+        tempCol := RandomRange(3,5);
+        tempRow := RandomRange(3,5);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=3 to 5 do
+    begin
+      for j:=6 to 8 do
+        tempCol := RandomRange(3,5);
+        tempRow := RandomRange(6,8);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=6 to 8 do
+    begin
+      for j:=0 to 2 do
+        tempCol := RandomRange(6,8);
+        tempRow := RandomRange(0,2);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=6 to 8 do
+    begin
+      for j:=3 to 5 do
+        tempCol := RandomRange(6,8);
+        tempRow := RandomRange(3,5);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+
+    tempCount := 0;
+    for i:=6 to 8 do
+    begin
+      for j:=6 to 8 do
+        tempCol := RandomRange(6,8);
+        tempRow := RandomRange(6,8);
+        if (diff>0) and (tempCount < count)  then
+        begin
+          NewSudokuGridDrawCell(tempCol, tempRow);
+          dec(diff);
+          inc(tempCount);
+        end;
+    end;
+  until diff>0;
+
 end;
 
-procedure RandomSwap (Sender: TObject);
+procedure RandomSwap();
 var
   temp, tempF, tempS: Integer;
 begin
@@ -255,40 +395,38 @@ begin
       3: tempS := 8;
     end;
   end;
-  SwapRows(tempF, tempS, NewGameForm.NewSudokuGrid);
-  SwapCols(tempF, tempS, NewGameForm.NewSudokuGrid);
+  SwapRows(tempF, tempS);
+  SwapCols(tempF, tempS);
 end;
 
 
-procedure TNewGameForm.FormShow(Sender: TObject);
+
 var
   temp, i, tempF, tempS: Integer;
 begin
-  NewSudokuGrid.Options := NewSudokuGrid.Options+[goEditing];
+  BasicRowGenetate();
+  NewNextRow(1);
+  NewNextRow(2);
 
-  BasicRowGenetate(NewSudokuGrid);
-  NewNextRow(1, NewSudokuGrid);
-  NewNextRow(2, NewSudokuGrid);
+  NewRow (3, 0);
+  NewNextRow(4);
+  NewNextRow(5);
 
-  NewRow (3, 0, NewSudokuGrid);
-  NewNextRow(4, NewSudokuGrid);
-  NewNextRow(5, NewSudokuGrid);
+  NewRow (6, 3);
+  NewNextRow(7);
+  NewNextRow(8);
 
-  NewRow (6, 3, NewSudokuGrid);
-  NewNextRow(7, NewSudokuGrid);
-  NewNextRow(8, NewSudokuGrid);
+  BasicRowGenetate();
+  NewNextRow(1);
+  NewNextRow(2);
 
-  BasicRowGenetate(NewSudokuGrid);
-  NewNextRow(1, NewSudokuGrid);
-  NewNextRow(2, NewSudokuGrid);
+  NewRow (3, 0);
+  NewNextRow(4);
+  NewNextRow(5);
 
-  NewRow (3, 0, NewSudokuGrid);
-  NewNextRow(4, NewSudokuGrid);
-  NewNextRow(5, NewSudokuGrid);
-
-  NewRow (6, 3, NewSudokuGrid);
-  NewNextRow(7, NewSudokuGrid);
-  NewNextRow(8, NewSudokuGrid);
+  NewRow (6, 3);
+  NewNextRow(7);
+  NewNextRow(8);
 
   case RandomRange(1,3) of
     1: tempF := 1;
@@ -302,7 +440,7 @@ begin
   end;
   temp := RandomRange(0,5);
   for i:=0 to temp do
-    SwapTripleRows(tempF, tempS, NewSudokuGrid);
+    SwapTripleRows(tempF, tempS);
 
   case RandomRange(1,3) of
     1: tempF := 1;
@@ -316,17 +454,22 @@ begin
   end;
   temp := RandomRange(0,5);
   for i:=0 to temp do
-    SwapTripleCols(tempF, tempS, NewSudokuGrid);
+    SwapTripleCols(tempF, tempS);
 
   temp := RandomRange(0,5);
   for i:=0 to temp do
-    RandomSwap (NewSudokuGrid);
+    RandomSwap();
 
   temp := RandomRange(0,3);
   for i:=0 to temp do
-    Transposing(NewSudokuGrid);
-
-  HideCells(NewSudokuGrid);
+    Transposing();
+  HideCells();
 end;
+
+//procedure TNewGameForm.NewSudokuGridDrawCell(Sender: TObject; ACol,
+//  ARow: Integer; Rect: TRect; State: TGridDrawState);
+//begin
+//
+//end;
 
 end.
