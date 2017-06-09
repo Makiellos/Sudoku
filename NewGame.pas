@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, Math, jpeg, ExtCtrls;
+  Dialogs, Grids, Math, jpeg, ExtCtrls, zlibpas;
 
 type
   TNewGameForm = class(TForm)
@@ -164,16 +164,9 @@ var
   Image: TImage;
   x, y: integer;
 begin
-  with NewGameForm.NewSudokuGrid.Canvas do
-  begin
-    Canvas.Pen.Color := clRed;
-    Canvas.Brush.Style := bsClear;
-    Canvas.Pen.Width := 3;
-    Canvas.Rectangle((ACol * 41) + ACol, (ARow * 41) + ARow, (ACol * 41) + ACol + 41, (ARow * 41) + ARow + 41);
-  end;
   Image := TImage.Create(Self);
   Image.Parent := NewsudokuGrid;
-  Image.Picture.LoadFromFile('ph.jpg');
+  Image.Picture.LoadFromFile('Kvadrat-150x150.png');
   Image.Left := (ACol * 41) {+ ACol};
   Image.Top := (ARow * 41) {+ ARow};
   Image.Width := 41;
@@ -181,7 +174,19 @@ begin
   //x := Image.Left + 1;
   //y := Image.Top + 1;
   Image.Stretch := true;
-//    Image.Transparent := true;
+  Image.Transparent := true;
+
+  //with Image.Canvas do
+ // begin
+ //   Brush.Color:=clBlack;
+  //  FrameRect(Rect((ACol * 41) + ACol, (ARow * 41) + ARow, (ACol * 41) + ACol + 41, (ARow * 41) + ARow + 41));
+ // end;
+    //Image.Canvas.Brush.Color := clRed;
+   // Image.Canvas.Brush.Style := bsSolid;
+   // Image.Canvas.Brush.Width := 3;
+    //Image.Canvas.Rectangle((ACol * 41) + ACol, (ARow * 41) + ARow, (ACol * 41) + ACol + 41, (ARow * 41) + ARow + 41);
+   // Image.Transparent := true;
+
 //  Image.Canvas.Pen.Color := clBlack;
 //  Image.Canvas.Brush.Color := clBlack;
 //  Image.Canvas.Brush.Style := bsSolid;
