@@ -4,21 +4,24 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, Math, jpeg, ExtCtrls, pngimage;
+  Dialogs, Grids, Math, jpeg, ExtCtrls, pngimage, StdCtrls, Buttons;
 
 type
   TNewGameForm = class(TForm)
     NewSudokuGrid: TStringGrid;
     NGFieldPic: TImage;
+    NGCheckBtn: TBitBtn;
     procedure FormShow(Sender: TObject);
+    procedure NGCheckBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
-    { Public declarations }
   end;
-
+type
+  TArrSudoku = array[0..8, 0..8] of Integer;
 var
   NewGameForm: TNewGameForm;
+  matrix: TArrSudoku;
 
 implementation
 
@@ -28,6 +31,7 @@ uses
 {$R *.dfm}
 
 procedure TNewGameForm.FormShow(Sender: TObject);
+
 procedure BasicRowGenetate();
 var i, k, temp: Integer;
 begin
@@ -186,7 +190,15 @@ begin
     begin
       temp:=RandomRange(1,10);
       if temp < count then
-      NewSudokuGridDrawCell(i, j);
+      begin
+        NewSudokuGridDrawCell(i, j);
+        matrix [j,i]:=0;
+      end
+      else
+      begin
+        with NewGameForm.NewSudokuGrid do
+          Cells[i,j]:= '';
+      end;
     end;
   end;
 end;
@@ -219,8 +231,6 @@ begin
   RandomHide(6,0,count);
   RandomHide(6,3,count);
   RandomHide(6,6,count);
-
-
 end;
 
 procedure RandomSwap();
@@ -271,23 +281,19 @@ begin
   SwapCols(tempF, tempS);
 end;
 
-
+procedure GridToMatrix;
+var
+  i,j: integer;
+begin
+  with NewGameForm.NewSudokuGrid do
+  for i:= 0 to 8 do
+    for j:= 0 to 8 do
+      matrix [j,i] := StrToInt(NewSudokuGrid.Cells [i,j]);
+end;
 
 var
   temp, i, tempF, tempS: Integer;
 begin
-  BasicRowGenetate();
-  NewNextRow(1);
-  NewNextRow(2);
-
-  NewRow (3, 0);
-  NewNextRow(4);
-  NewNextRow(5);
-
-  NewRow (6, 3);
-  NewNextRow(7);
-  NewNextRow(8);
-
   BasicRowGenetate();
   NewNextRow(1);
   NewNextRow(2);
@@ -335,13 +341,48 @@ begin
   temp := RandomRange(0,3);
   for i:=0 to temp do
     Transposing();
-  HideCells();
+
+  GridToMatrix;
+
+  HideCells;
 end;
 
-//procedure TNewGameForm.NewSudokuGridDrawCell(Sender: TObject; ACol,
-//  ARow: Integer; Rect: TRect; State: TGridDrawState);
-//begin
-//
-//end;
+procedure TNewGameForm.NGCheckBtnClick(Sender: TObject);
+var
+  i,j,choose: integer;
+  IfAllCorrect: Boolean;
+begin
+  choose:=0;
+  IfAllCorrect:=True;
+  with NewGameForm.NewSudokuGrid do
+  for i:= 0 to 8 do
+  begin
+    for j:= 0 to 8 do
+    begin
+      if NewSudokuGrid.Cells[i,j]='' then
+      begin
+        ShowMessage('Oops! You did not fill all cells!'+#13#10+'Try again.');
+        IfAllCorrect:=False;
+        Exit;
+      end
+      else
+      begin
+        if (matrix[j,i]<>0) then
+        begin
+          if (matrix[j,i]<>StrToInt(NewSudokuGrid.Cells[i,j])) then
+            inc(choose);
+        end;
+      end;
+    end;
+  end;
+  if (choose <> 0) then
+    ShowMessage('Oops! You had mistaken!'+#13#10+'Try again.')
+  else
+  begin
+    if IfAllCorrect then
+      MessageBox(Handle,PChar('You have successfully completed the game!'
+        +#13#10+ 'Congratulations!'), PChar(''), MB_OK);
+  end;
+end;
 
 end.

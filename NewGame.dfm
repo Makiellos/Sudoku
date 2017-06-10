@@ -1,6 +1,6 @@
 object NewGameForm: TNewGameForm
-  Left = 394
-  Top = 365
+  Left = 319
+  Top = 287
   Width = 791
   Height = 483
   Caption = 'NewGameForm'
@@ -2406,7 +2406,28 @@ object NewGameForm: TNewGameForm
     FixedCols = 0
     RowCount = 9
     FixedRows = 0
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'Century Gothic'
+    Font.Style = []
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    ParentFont = False
     TabOrder = 0
+  end
+  object NGCheckBtn: TBitBtn
+    Left = 456
+    Top = 64
+    Width = 113
+    Height = 41
+    Caption = 'Check'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = NGCheckBtnClick
   end
 end
