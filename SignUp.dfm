@@ -1,7 +1,7 @@
 object SignUpForm: TSignUpForm
-  Left = 544
-  Top = 236
-  Width = 361
+  Left = 474
+  Top = 187
+  Width = 363
   Height = 316
   Caption = 'SignUpForm'
   Color = clBtnHighlight
@@ -11,6 +11,7 @@ object SignUpForm: TSignUpForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object SUText: TStaticText
@@ -29,40 +30,38 @@ object SignUpForm: TSignUpForm
   end
   object SULoginMask: TMaskEdit
     Left = 144
-    Top = 120
+    Top = 104
     Width = 140
     Height = 24
     Hint = ' Enter your login of 7 and less chars'
     Color = clScrollBar
-    EditMask = 'aaaaaaa;0;_'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'Century Gothic'
     Font.Style = []
-    MaxLength = 7
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
+    OnClick = SULoginMaskClick
   end
   object SUPasswordMask: TMaskEdit
     Left = 144
-    Top = 184
+    Top = 168
     Width = 142
     Height = 21
     Hint = 'Enter your password between 4 and 7 chars'
     Color = clScrollBar
-    EditMask = 'AAAAaaa;0;_'
-    MaxLength = 7
     ParentShowHint = False
     PasswordChar = #8226
     ShowHint = True
     TabOrder = 2
+    OnClick = SUPasswordMaskClick
   end
   object SUTextLogin: TStaticText
     Left = 32
-    Top = 120
+    Top = 104
     Width = 58
     Height = 26
     Caption = 'Login:'
@@ -76,7 +75,7 @@ object SignUpForm: TSignUpForm
   end
   object SUTextPassword: TStaticText
     Left = 24
-    Top = 184
+    Top = 168
     Width = 94
     Height = 26
     Caption = 'Password:'
@@ -96,5 +95,23 @@ object SignUpForm: TSignUpForm
     Caption = 'btn1'
     TabOrder = 5
     OnClick = btn1Click
+  end
+  object btnConfirmTheReg: TButton
+    Left = 163
+    Top = 224
+    Width = 121
+    Height = 33
+    Caption = 'Confirm'
+    TabOrder = 6
+    OnClick = btnConfirmTheRegClick
+  end
+  object btnBack: TButton
+    Left = 24
+    Top = 224
+    Width = 121
+    Height = 33
+    Caption = 'Back'
+    TabOrder = 7
+    OnClick = btnBackClick
   end
 end

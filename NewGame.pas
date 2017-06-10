@@ -11,8 +11,10 @@ type
     NewSudokuGrid: TStringGrid;
     NGFieldPic: TImage;
     NGCheckBtn: TBitBtn;
+    NGSaveBtn: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure NGCheckBtnClick(Sender: TObject);
+   procedure NGSaveBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -21,13 +23,19 @@ type
   TArrSudoku = array[0..8, 0..8] of Integer;
 var
   NewGameForm: TNewGameForm;
-  matrix: TArrSudoku;
+  matrixA: TArrSudoku;
 
 implementation
 
 uses
   DifficultyLvl;
-
+type
+  TSavedSudoku = record
+    Name: ShortString;
+    Time: TDateTime;
+    DiffLvl: Integer;
+    MatrixA, MatrixB: TArrSudoku;
+  end;
 {$R *.dfm}
 
 procedure TNewGameForm.FormShow(Sender: TObject);
@@ -192,7 +200,7 @@ begin
       if temp < count then
       begin
         NewSudokuGridDrawCell(i, j);
-        matrix [j,i]:=0;
+        matrixA [j,i]:=0;
       end
       else
       begin
@@ -233,7 +241,7 @@ begin
   RandomHide(6,6,count);
 end;
 
-procedure RandomSwap();
+procedure RandomSwap;
 var
   temp, tempF, tempS: Integer;
 begin
@@ -288,7 +296,7 @@ begin
   with NewGameForm.NewSudokuGrid do
   for i:= 0 to 8 do
     for j:= 0 to 8 do
-      matrix [j,i] := StrToInt(NewSudokuGrid.Cells [i,j]);
+      matrixA [j,i] := StrToInt(NewSudokuGrid.Cells [i,j]);
 end;
 
 var
@@ -367,9 +375,9 @@ begin
       end
       else
       begin
-        if (matrix[j,i]<>0) then
+        if (matrixA[j,i]<>0) then
         begin
-          if (matrix[j,i]<>StrToInt(NewSudokuGrid.Cells[i,j])) then
+          if (matrixA[j,i]<>StrToInt(NewSudokuGrid.Cells[i,j])) then
             inc(choose);
         end;
       end;
@@ -383,6 +391,31 @@ begin
       MessageBox(Handle,PChar('You have successfully completed the game!'
         +#13#10+ 'Congratulations!'), PChar(''), MB_OK);
   end;
+end;
+
+procedure TNewGameForm.NGSaveBtnClick(Sender: TObject);
+var
+  SaveSudoku: TSavedSudoku;
+  F: file of TSavedSudoku;
+  S: ShortString;
+  counter: Integer;
+begin
+ // MkDir(const S: string);
+  if not DirectoryExists(SaveSudoku.Name) then
+  begin
+    MkDir(SaveSudoku.Name);
+  end;
+  ChDir(SaveSudoku.Name);
+  counter:=1;
+  while FileExists(SaveSudoku.Name + IntToStr(counter) + '.hui') do
+  begin
+    inc(counter);
+  end;
+  AssignFile(F, SaveSudoku.Name + IntToStr(counter) + '.hui');
+  Rewrite(F);
+  // code will be there
+  write(F, SaveSudoku);
+  CloseFile(F);
 end;
 
 end.

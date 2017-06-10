@@ -1,6 +1,6 @@
 object SavedGameForm: TSavedGameForm
-  Left = 405
-  Top = 273
+  Left = 457
+  Top = 220
   Width = 669
   Height = 480
   Caption = 'SavedGameForm'

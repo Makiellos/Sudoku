@@ -1,6 +1,6 @@
 object NewGameForm: TNewGameForm
-  Left = 319
-  Top = 287
+  Left = 446
+  Top = 161
   Width = 791
   Height = 483
   Caption = 'NewGameForm'
@@ -2429,5 +2429,14 @@ object NewGameForm: TNewGameForm
     ParentFont = False
     TabOrder = 1
     OnClick = NGCheckBtnClick
+  end
+  object NGSaveBtn: TBitBtn
+    Left = 456
+    Top = 136
+    Width = 121
+    Height = 41
+    Caption = 'NGSaveBtn'
+    TabOrder = 2
+    OnClick = NGSaveBtnClick
   end
 end

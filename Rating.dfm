@@ -1,6 +1,6 @@
 object RatingForm: TRatingForm
-  Left = 113
-  Top = 336
+  Left = 405
+  Top = 65
   Width = 928
   Height = 593
   Caption = 'RatingForm'

@@ -1,5 +1,7 @@
 program Sudoku;
 
+
+
 uses
   Forms,
   MainMenu in 'MainMenu.pas' {MainMenuForm},
@@ -11,7 +13,9 @@ uses
   SignLog in 'SignLog.pas' {SignLogForm},
   SignUp in 'SignUp.pas' {SignUpForm},
   LogIn in 'LogIn.pas' {LogInForm},
-  DifficultyLvl in 'DifficultyLvl.pas' {DifficultyLvlForm};
+  DifficultyLvl in 'DifficultyLvl.pas' {DifficultyLvlForm},
+  CheckLoginAndPassword in 'CheckLoginAndPassword.pas',
+  Users in 'Users.pas' {UsersForm};
 
 {$R *.res}
 
@@ -27,5 +31,6 @@ begin
   Application.CreateForm(TRulesForm, RulesForm);
   Application.CreateForm(TAboutForm, AboutForm);
   Application.CreateForm(TDifficultyLvlForm, DifficultyLvlForm);
+  Application.CreateForm(TUsersForm, UsersForm);
   Application.Run;
 end.
