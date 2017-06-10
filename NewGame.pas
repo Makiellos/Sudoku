@@ -175,62 +175,51 @@ begin
   Image.Transparent := true;
 end;
 
-procedure RandomHide(Col, Row, diff, count: integer);
+procedure RandomHide(Col, Row, count: integer );
 var
-  tempCount, tempCol, tempRow, i, j: Integer;
+  tempCount, tempCol, tempRow, temp, i, j, n: Integer;
 begin
   tempCount := 0;
   for i:=Col to Col+2 do
   begin
     for j:=Row to Row+2 do
     begin
-      Randomize;
-      tempCol := RandomRange(Col,Col+1);
-      tempRow := RandomRange(Row,Row+1);
-      if (diff>0) and (tempCount < count)  then
-      begin
-        NewSudokuGridDrawCell(tempCol, tempRow);
-        dec(diff);
-        inc(tempCount);
-      end;
+      temp:=RandomRange(1,10);
+      if temp < count then
+      NewSudokuGridDrawCell(i, j);
     end;
   end;
 end;
 
 procedure HideCells;
 var
-  diff, temp, i, j, tempCol, tempRow, count, tempCount: Integer;
+  temp, i, j, tempCol, tempRow, count, tempCount: Integer;
 begin
-  diff:=0;
   if DifficultyLvlForm.DiffEasy then
   begin
-    diff:=63;
     count:=7;
   end;
   if DifficultyLvlForm.DiffMedium then
   begin
-    diff:=25;
-    count:=3;
+    count:=6;
   end;
   if DifficultyLvlForm.DiffHard then
   begin
-    diff:=29;
-    count:=4;
+    count:=5;
   end;
 
-  repeat
-    RandomHide(0,0,diff,count);
-    RandomHide(0,3,diff,count);
-    RandomHide(0,6,diff,count);
+  RandomHide(0,0,count);
+  RandomHide(0,3,count);
+  RandomHide(0,6,count);
 
-    RandomHide(3,0,diff,count);
-    RandomHide(3,3,diff,count);
-    RandomHide(3,6,diff,count);
+  RandomHide(3,0,count);
+  RandomHide(3,3,count);
+  RandomHide(3,6,count);
 
-    RandomHide(6,0,diff,count);
-    RandomHide(6,3,diff,count);
-    RandomHide(6,6,diff,count);
-  until diff<0;
+  RandomHide(6,0,count);
+  RandomHide(6,3,count);
+  RandomHide(6,6,count);
+
 
 end;
 
