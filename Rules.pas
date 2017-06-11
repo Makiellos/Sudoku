@@ -12,6 +12,7 @@ type
     lRulesLabel: TLabel;
     RulesMemo: TMemo;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -23,11 +24,18 @@ var
 
 implementation
 
+uses MainMenu;
+
 {$R *.dfm}
 
 procedure TRulesForm.FormCreate(Sender: TObject);
 begin
   RulesMemo.Lines.LoadFromFile('Rules.txt');
+end;
+
+procedure TRulesForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  MainMenuForm.Show;
 end;
 
 end.

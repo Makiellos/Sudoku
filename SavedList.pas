@@ -134,9 +134,9 @@ begin
   counter := 1;
   RowN := 1;
   SudokuList := TList.Create;
-  while FileExists(LogUser + IntToStr(counter) + '.hui') do
+  while FileExists(LogUser + IntToStr(counter) + '.sud') do
   begin
-    AssignFile(F, LogUser + IntToStr(counter) + '.hui');
+    AssignFile(F, LogUser + IntToStr(counter) + '.sud');
     Reset(F);
     Read(F,SaveSudoku);
 

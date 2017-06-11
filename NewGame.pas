@@ -32,6 +32,7 @@ var
   NewGameForm: TNewGameForm;
   matrixA, matrixB, matrixC: TArrSudoku;
   count: Integer;
+  Image: TImage;
 
 implementation
 
@@ -175,7 +176,7 @@ end;
 
 procedure NewSudokuGridDrawCell(ACol, ARow: Integer);
 var
-  Image: TImage;
+  //Image: TImage;
   x, y: integer;
 begin
   Image := TImage.Create(Self);
@@ -416,11 +417,11 @@ begin
   If not (P = 'E:\progs\sudoku_new\sudoku\Sudoku\'+LogUser) then
   Chdir(LogUser);
   counter:=1;
-  while FileExists(LogUser + IntToStr(counter) + '.hui') do
+  while FileExists(LogUser + IntToStr(counter) + '.sud') do
   begin
     inc(counter);
   end;
-  AssignFile(F, LogUser + IntToStr(counter) + '.hui');
+  AssignFile(F, LogUser + IntToStr(counter) + '.sud');
   Rewrite(F);
 
   SaveSudoku.Name := LogUser;
@@ -435,8 +436,27 @@ begin
 end;
 
 procedure TNewGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
+var i, j:Integer;
+    c:TControl;
 begin
-  MainMenuForm.Show;
+  //for i:=0 to 8 do
+   // for j:=0 to 8 do
+   // Image.Picture := nil;
+ // MainMenuForm.Show;
+
+  for i := 0 to 8 do
+    for j:=0 to 8 do
+    begin
+      c := self.Controls[i];
+      if c is TImage then
+      begin
+        c.Parent := nil;
+        c.Free;
+      end;
+    end;
+Self.Close;
 end;
 
 end.
+
+

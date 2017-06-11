@@ -1,5 +1,5 @@
 object NewGameForm: TNewGameForm
-  Left = 352
+  Left = 290
   Top = 330
   Width = 791
   Height = 483

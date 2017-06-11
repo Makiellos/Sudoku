@@ -1,0 +1,1 @@
+This program allows you to play Sudoku, save the game and continue playing later. Enjoy!

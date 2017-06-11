@@ -8,13 +8,6 @@ uses
   LogIn, StdCtrls, Buttons;
 
 type
-//  TSavedSudoku = record
-//    Name: ShortString;
-//    DiffLvl: Integer;
-//    DateGame: TDateTime;
-//    MatrixOne, MatrixTwo, MatrixThree: TArrSudoku;
-//  end;
-
   TSavedGamingForm = class(TForm)
     SGMainImg: TImage;
     SavedSudGrid: TStringGrid;
@@ -23,6 +16,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure SGCheckBtnClick(Sender: TObject);
     procedure SGSaveBtnClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -32,7 +26,7 @@ type
 var
   SavedGamingForm: TSavedGamingForm;
   matrixA, matrixB, matrixC: TArrSudoku;
-
+  matrA, matrB, matrC: TArrSudoku;
 implementation
 
 uses SavedList;
@@ -60,8 +54,6 @@ begin
   Image.Transparent := true;
 end;
 
-
-
 var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
@@ -69,13 +61,13 @@ var
 begin
   with SavedSudGrid do
   begin
-    AssignFile(F, LogUser + IntToStr(SavedListForm.SLGrid.Row) + '.hui');
+    AssignFile(F, LogUser + IntToStr(SavedListForm.SLGrid.Row) + '.sud');
     Reset(F);
     Read(F,SaveSudoku);
     CloseFile(F);
     MatrixA := SaveSudoku.MatrixOne;
     MatrixB := SaveSudoku.MatrixTwo;
-    matrixC := SaveSudoku.MatrixThree;
+    MatrixC := SaveSudoku.MatrixThree;
     for i:= 0 to 8 do
       for j:= 0 to 8 do
       begin
@@ -127,7 +119,7 @@ begin
     begin
       MessageBox(Handle,PChar('You have successfully completed the game!'
         +#13#10+ 'Congratulations!'), PChar(''), MB_OK);
-      DeleteFile(LogUser + IntToStr(SavedListForm.SLGrid.Row) + '.hui');
+      DeleteFile(LogUser + IntToStr(SavedListForm.SLGrid.Row) + '.sud');
     end;
   end;
 end;
@@ -150,11 +142,11 @@ begin
   If not (P = 'E:\progs\sudoku_new\sudoku\Sudoku\'+LogUser) then
   Chdir(LogUser);
   counter:=1;
-  while FileExists(LogUser + IntToStr(counter) + '.hui') do
+  while FileExists(LogUser + IntToStr(counter) + '.sud') do
   begin
     inc(counter);
   end;
-  AssignFile(F, LogUser + IntToStr(counter) + '.hui');
+  AssignFile(F, LogUser + IntToStr(counter) + '.sud');
   Rewrite(F);
 
   SaveSudoku.Name := LogUser;
@@ -166,6 +158,17 @@ begin
   SaveSudoku.DateGame := Date;
   write(F, SaveSudoku);
   CloseFile(F);
+end;
+
+procedure TSavedGamingForm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+var
+  i,j: integer;
+begin
+  for i:=0 to 8 do
+    for j:=0 to 8 do
+    FreeAndNil(image);
+  MainMenuForm.Show;
 end;
 
 end.
