@@ -1,6 +1,6 @@
 object NewGameForm: TNewGameForm
-  Left = 488
-  Top = 222
+  Left = 352
+  Top = 330
   Width = 791
   Height = 483
   Caption = 'NewGameForm'
@@ -2434,9 +2434,15 @@ object NewGameForm: TNewGameForm
   object NGSaveBtn: TBitBtn
     Left = 456
     Top = 136
-    Width = 121
+    Width = 113
     Height = 41
-    Caption = 'NGSaveBtn'
+    Caption = 'Save'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 2
     OnClick = NGSaveBtnClick
   end

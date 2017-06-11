@@ -1,6 +1,6 @@
 object SavedListForm: TSavedListForm
-  Left = 345
-  Top = 197
+  Left = 280
+  Top = 270
   Width = 928
   Height = 593
   Caption = 'SavedListForm'

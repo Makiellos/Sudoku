@@ -36,6 +36,7 @@ var
   F: file of TSavedSudoku;
   counter, RowN: Integer;
 begin
+  ChDir(LogUser);
   with SLGrid do
   begin
     Cells[0,0] := 'Date:';
@@ -44,7 +45,6 @@ begin
   end;
   counter := 1;
   RowN := 1;
-  ChDir(LogUser);
   while FileExists(LogUser + IntToStr(counter) + '.hui') do
   begin
     AssignFile(F, LogUser + IntToStr(counter) + '.hui');
@@ -52,6 +52,7 @@ begin
     Read(F,SaveSudoku);
     with SLGrid do
     begin
+      SLGrid.RowCount:=SLGrid.RowCount+1;
       Cells[0, RowN] := DateToStr(SaveSudoku.DateGame);
       Cells[1, RowN] := LogUser + IntToStr(counter);
       case SaveSudoku.DiffLvl of
@@ -66,8 +67,6 @@ begin
   end;
 end;
 
-
-
 procedure TSavedListForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   MainMenuForm.Show;
@@ -77,9 +76,8 @@ procedure TSavedListForm.SLGridMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var ACol, ARow: Integer;
 begin
-  StringGrid1.MouseToCell(X, Y, ACol, ARow);
-  StringGrid1.Col:=ACol;
-  StringGrid1.Row:=ARow;
+  SLGrid.MouseToCell(X, Y, ACol, ARow);
+  SLGrid.Row:=ARow;
   Hide;
   SavedGamingForm.Show;
 end;

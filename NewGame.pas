@@ -26,11 +26,11 @@ type
     Name: ShortString;
     DiffLvl: Integer;
     DateGame: TDateTime;
-    MatrixFirst, MatrixSec: TArrSudoku;
+    MatrixOne, MatrixTwo, MatrixThree: TArrSudoku;
   end;
 var
   NewGameForm: TNewGameForm;
-  matrixA, matrixB: TArrSudoku;
+  matrixA, matrixB, matrixC: TArrSudoku;
   count: Integer;
 
 implementation
@@ -180,6 +180,7 @@ var
 begin
   Image := TImage.Create(Self);
   Image.Parent := NewsudokuGrid;
+  SetCurrentDir('E:\progs\sudoku_new\sudoku\Sudoku');
   Image.Picture.LoadFromFile('Kvadrat-150x150.png');
   Image.Left := (ACol * 41);
   Image.Top := (ARow * 41);
@@ -203,11 +204,15 @@ begin
       begin
         NewSudokuGridDrawCell(i, j);
         matrixA [j,i]:=0;
+        matrixC [j,i] := 10;
       end
       else
       begin
         with NewGameForm.NewSudokuGrid do
+        begin
           Cells[i,j]:= '';
+          matrixC [j,i] := 0;
+        end;
       end;
     end;
   end;
@@ -395,8 +400,15 @@ procedure TNewGameForm.NGSaveBtnClick(Sender: TObject);
 var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
-  counter: Integer;
+  counter, i, j: Integer;
 begin
+  with NewGameForm.NewSudokuGrid do
+  for i:= 0 to 8 do
+    for j:= 0 to 8 do
+    begin
+      if (Cells[i,j] <> '') and (matrixC [j,i]<>10) then
+      matrixC [j,i] := StrToInt(Cells [i,j]);
+    end;
   ChDir(LogUser);
   counter:=1;
   while FileExists(LogUser + IntToStr(counter) + '.hui') do
@@ -408,8 +420,10 @@ begin
 
   SaveSudoku.Name := LogUser;
   SaveSudoku.DiffLvl := count;
-  SaveSudoku.MatrixFirst := MatrixA;
-  SaveSudoku.MatrixSec := MatrixB;
+  SaveSudoku.MatrixOne := MatrixA;
+  SaveSudoku.MatrixTwo := MatrixB;
+  SaveSudoku.MatrixThree := MatrixC;
+
   SaveSudoku.DateGame := Date;
   write(F, SaveSudoku);
   CloseFile(F);
