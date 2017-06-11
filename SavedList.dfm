@@ -1,8 +1,8 @@
 object SavedListForm: TSavedListForm
-  Left = 280
-  Top = 270
-  Width = 928
-  Height = 593
+  Left = 242
+  Top = 292
+  Width = 913
+  Height = 574
   Caption = 'SavedListForm'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -36,5 +36,20 @@ object SavedListForm: TSavedListForm
       83
       261
       96)
+  end
+  object SLSortBtn: TButton
+    Left = 592
+    Top = 112
+    Width = 129
+    Height = 49
+    Caption = 'Sort by difficulty'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = SLSortBtnClick
   end
 end

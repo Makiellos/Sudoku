@@ -15,7 +15,7 @@ K=0
 L=1
 M=0
 N=1
-O=1
+O=0
 P=1
 Q=0
 R=0
@@ -119,6 +119,16 @@ Private=0
 DLL=0
 Locale=1033
 CodePage=1252
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
 [Excluded Packages]
 f:\delphi\delphi7\Bin\dclado70.bpl=Borland ADO DB Components
 f:\delphi\delphi7\Bin\dclib70.bpl=InterBase Data Access Components

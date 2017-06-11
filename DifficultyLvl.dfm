@@ -1,10 +1,9 @@
 object DifficultyLvlForm: TDifficultyLvlForm
-  Left = 640
-  Top = 219
+  Left = 610
+  Top = 222
   Width = 374
   Height = 477
   Hint = 'Choose level from 1 to 5'
-  Align = alClient
   Caption = 'DifficultyLvlForm'
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -13,6 +12,7 @@ object DifficultyLvlForm: TDifficultyLvlForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   ShowHint = True
   PixelsPerInch = 96
   TextHeight = 13

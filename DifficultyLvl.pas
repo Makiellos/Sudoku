@@ -35,7 +35,7 @@ implementation
 
 uses
   NewGame, MainMenu;
-
+  
 {$R *.dfm}
 
 procedure TDifficultyLvlForm.DffLvlBtnClick(Sender: TObject);
