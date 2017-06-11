@@ -126,6 +126,7 @@ var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
   counter, i, j: Integer;
+  P: string;
 begin
   with NewGameForm.NewSudokuGrid do
   for i:= 0 to 8 do
@@ -134,7 +135,9 @@ begin
       if (Cells[i,j] <> '') and (matrixC [j,i]<>10) then
       matrixC [j,i] := StrToInt(Cells [i,j]);
     end;
-  ChDir(LogUser);
+  P:=getcurrentdir;
+  If not (P = 'E:\progs\sudoku_new\sudoku\Sudoku\'+LogUser) then
+  Chdir(LogUser);
   counter:=1;
   while FileExists(LogUser + IntToStr(counter) + '.hui') do
   begin

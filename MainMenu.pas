@@ -19,6 +19,7 @@ type
     procedure MMBtnListClick(Sender: TObject);
     procedure MMBtnRulesClick(Sender: TObject);
     procedure MMBtnAboutClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -56,6 +57,12 @@ procedure TMainMenuForm.MMBtnAboutClick(Sender: TObject);
 begin
   Hide;
   AboutForm.Show;
+end;
+
+procedure TMainMenuForm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Application.Destroying;
 end;
 
 end.

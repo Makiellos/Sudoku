@@ -11,6 +11,7 @@ object MainMenuForm: TMainMenuForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object MMImgCopyleft: TImage

@@ -35,8 +35,11 @@ var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
   counter, RowN: Integer;
+  P: string;
 begin
-  ChDir(LogUser);
+  P:=getcurrentdir;
+  If not (P = 'E:\progs\sudoku_new\sudoku\Sudoku\'+LogUser) then
+  Chdir(LogUser);
   with SLGrid do
   begin
     Cells[0,0] := 'Date:';
