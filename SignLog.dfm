@@ -1,6 +1,6 @@
 object SignLogForm: TSignLogForm
-  Left = 473
-  Top = 273
+  Left = 550
+  Top = 172
   Width = 431
   Height = 465
   Color = clBtnHighlight

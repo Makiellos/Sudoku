@@ -30,6 +30,7 @@ type
 
 var
   LogInForm: TLogInForm;
+  LogUser,PasUser: shortstring;
 
 implementation
 
@@ -46,7 +47,6 @@ begin
 end;
 
 procedure TLogInForm.btnConfirmTheRegClick(Sender: TObject);
-var LogUser,PasUser:string;
 begin
   UsersForm.Reload;
   LogUser:=LILoginMask.Text;

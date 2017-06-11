@@ -1373,12 +1373,12 @@ object MainMenuForm: TMainMenuForm
     TabOrder = 0
     OnClick = MMBtnNewGameClick
   end
-  object MMBtnSavedGame: TBitBtn
+  object MMBtnList: TBitBtn
     Left = 112
-    Top = 184
+    Top = 192
     Width = 137
     Height = 33
-    Caption = 'Saved Game'
+    Caption = 'List of saved Games'
     Font.Charset = GREEK_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -1386,26 +1386,11 @@ object MainMenuForm: TMainMenuForm
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    OnClick = MMBtnSavedGameClick
-  end
-  object MMBtnRating: TBitBtn
-    Left = 112
-    Top = 240
-    Width = 137
-    Height = 33
-    Caption = 'Rating'
-    Font.Charset = GREEK_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Century Gothic'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 2
-    OnClick = MMBtnRatingClick
+    OnClick = MMBtnListClick
   end
   object MMBtnRules: TBitBtn
     Left = 112
-    Top = 296
+    Top = 264
     Width = 137
     Height = 33
     Caption = 'Rules'
@@ -1415,12 +1400,12 @@ object MainMenuForm: TMainMenuForm
     Font.Name = 'Century Gothic'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     OnClick = MMBtnRulesClick
   end
   object MMBtnAbout: TBitBtn
     Left = 112
-    Top = 352
+    Top = 328
     Width = 137
     Height = 33
     Caption = 'About'
@@ -1430,7 +1415,7 @@ object MainMenuForm: TMainMenuForm
     Font.Name = 'Century Gothic'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     OnClick = MMBtnAboutClick
   end
 end

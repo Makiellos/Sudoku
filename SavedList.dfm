@@ -1,9 +1,9 @@
-object RatingForm: TRatingForm
-  Left = 319
-  Top = 150
+object SavedListForm: TSavedListForm
+  Left = 345
+  Top = 197
   Width = 928
   Height = 593
-  Caption = 'RatingForm'
+  Caption = 'SavedListForm'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,21 +11,30 @@ object RatingForm: TRatingForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object SLGrid: TStringGrid
     Left = 64
     Top = 64
-    Width = 441
+    Width = 465
     Height = 465
-    ColCount = 2
+    ColCount = 3
     FixedCols = 0
-    RowCount = 20
+    RowCount = 2
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Century Gothic'
+    Font.Style = []
+    ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 0
+    OnMouseDown = SLGridMouseDown
     ColWidths = (
-      172
-      261)
+      83
+      261
+      96)
   end
 end

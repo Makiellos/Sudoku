@@ -6,8 +6,8 @@ uses
   Forms,
   MainMenu in 'MainMenu.pas' {MainMenuForm},
   NewGame in 'NewGame.pas' {NewGameForm},
-  SavedGame in 'SavedGame.pas' {SavedGameForm},
-  Rating in 'Rating.pas' {RatingForm},
+  SavedGaming in 'SavedGaming.pas' {SavedGamingForm},
+  SavedList in 'SavedList.pas' {SavedListForm},
   Rules in 'Rules.pas' {RulesForm},
   About in 'About.pas' {AboutForm},
   SignLog in 'SignLog.pas' {SignLogForm},
@@ -26,8 +26,8 @@ begin
   Application.CreateForm(TLogInForm, LogInForm);
   Application.CreateForm(TMainMenuForm, MainMenuForm);
   Application.CreateForm(TNewGameForm, NewGameForm);
-  Application.CreateForm(TSavedGameForm, SavedGameForm);
-  Application.CreateForm(TRatingForm, RatingForm);
+  Application.CreateForm(TSavedGamingForm, SavedGamingForm);
+  Application.CreateForm(TSavedListForm, SavedListForm);
   Application.CreateForm(TRulesForm, RulesForm);
   Application.CreateForm(TAboutForm, AboutForm);
   Application.CreateForm(TDifficultyLvlForm, DifficultyLvlForm);

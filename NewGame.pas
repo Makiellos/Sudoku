@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, Math, jpeg, ExtCtrls, pngimage, StdCtrls, Buttons;
+  Dialogs, Grids, Math, jpeg, ExtCtrls, pngimage, StdCtrls, Buttons, LogIn;
 
 type
   TNewGameForm = class(TForm)
@@ -15,27 +15,29 @@ type
     procedure FormShow(Sender: TObject);
     procedure NGCheckBtnClick(Sender: TObject);
    procedure NGSaveBtnClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
   end;
 type
   TArrSudoku = array[0..8, 0..8] of Integer;
+  TSavedSudoku = record
+    Name: ShortString;
+    DiffLvl: Integer;
+    DateGame: TDateTime;
+    MatrixFirst, MatrixSec: TArrSudoku;
+  end;
 var
   NewGameForm: TNewGameForm;
-  matrixA: TArrSudoku;
+  matrixA, matrixB: TArrSudoku;
+  count: Integer;
 
 implementation
 
 uses
-  DifficultyLvl;
-type
-  TSavedSudoku = record
-    Name: ShortString;
-    Time: TDateTime;
-    DiffLvl: Integer;
-    MatrixA, MatrixB: TArrSudoku;
-  end;
+  DifficultyLvl, MainMenu;
+
 {$R *.dfm}
 
 procedure TNewGameForm.FormShow(Sender: TObject);
@@ -213,7 +215,7 @@ end;
 
 procedure HideCells;
 var
-  temp, i, j, tempCol, tempRow, count, tempCount: Integer;
+  temp, i, j, tempCol, tempRow, tempCount: Integer;
 begin
   if DifficultyLvlForm.DiffEasy then
   begin
@@ -289,18 +291,8 @@ begin
   SwapCols(tempF, tempS);
 end;
 
-procedure GridToMatrix;
 var
-  i,j: integer;
-begin
-  with NewGameForm.NewSudokuGrid do
-  for i:= 0 to 8 do
-    for j:= 0 to 8 do
-      matrixA [j,i] := StrToInt(NewSudokuGrid.Cells [i,j]);
-end;
-
-var
-  temp, i, tempF, tempS: Integer;
+  temp, i, j, tempF, tempS: Integer;
 begin
   BasicRowGenetate();
   NewNextRow(1);
@@ -344,13 +336,19 @@ begin
 
   temp := RandomRange(0,5);
   for i:=0 to temp do
-    RandomSwap();
+    RandomSwap;
 
   temp := RandomRange(0,3);
   for i:=0 to temp do
-    Transposing();
+    Transposing;
 
-  GridToMatrix;
+  with NewGameForm.NewSudokuGrid do
+  for i:= 0 to 8 do
+    for j:= 0 to 8 do
+    begin
+      matrixA [j,i] := StrToInt(NewSudokuGrid.Cells [i,j]);
+      matrixB [j,i] := StrToInt(NewSudokuGrid.Cells [i,j]);
+    end;
 
   HideCells;
 end;
@@ -397,25 +395,29 @@ procedure TNewGameForm.NGSaveBtnClick(Sender: TObject);
 var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
-  S: ShortString;
   counter: Integer;
 begin
- // MkDir(const S: string);
-  if not DirectoryExists(SaveSudoku.Name) then
-  begin
-    MkDir(SaveSudoku.Name);
-  end;
-  ChDir(SaveSudoku.Name);
+  ChDir(LogUser);
   counter:=1;
-  while FileExists(SaveSudoku.Name + IntToStr(counter) + '.hui') do
+  while FileExists(LogUser + IntToStr(counter) + '.hui') do
   begin
     inc(counter);
   end;
-  AssignFile(F, SaveSudoku.Name + IntToStr(counter) + '.hui');
+  AssignFile(F, LogUser + IntToStr(counter) + '.hui');
   Rewrite(F);
-  // code will be there
+
+  SaveSudoku.Name := LogUser;
+  SaveSudoku.DiffLvl := count;
+  SaveSudoku.MatrixFirst := MatrixA;
+  SaveSudoku.MatrixSec := MatrixB;
+  SaveSudoku.DateGame := Date;
   write(F, SaveSudoku);
   CloseFile(F);
+end;
+
+procedure TNewGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  MainMenuForm.Show;
 end;
 
 end.

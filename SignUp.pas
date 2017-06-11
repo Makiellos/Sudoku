@@ -30,7 +30,7 @@ type
 
 var
   SignUpForm: TSignUpForm;
-  LoginUser, PassUser:string;
+  LoginUser, PassUser: shortstring;
 
 
 implementation
@@ -57,6 +57,7 @@ begin
         begin
           AddLogAndPas(LogAndPasList,LoginUser,PassUser);
           MessageBox(Handle,PChar('Registration was a success'),PChar('OK'),(MB_OK+MB_ICONINFORMATION));
+          CreateDir(LoginUser);
           Close;
           SignLogForm.Show;
         end

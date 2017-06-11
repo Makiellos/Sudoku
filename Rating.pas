@@ -8,8 +8,8 @@ uses
 
 type
   TRatingForm = class(TForm)
-    Registration: TStringGrid;
-   // procedure RegistrationClick(Sender: TObject);
+    SLGrid: TStringGrid;
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -25,14 +25,13 @@ uses NewGame;
 
 {$R *.dfm}
 
-{procedure TRatingForm.RegistrationClick(Sender: TObject);
+
+procedure TRatingForm.FormShow(Sender: TObject);
 begin
-  with NewGameForm.Registration do
-    Cells[0,0] := 'Player';
-    Cells[0,1] := 'Date';
-    Cells[0,2] := 'Total Score';
-    Cells[0,3] := 'Difficulty';
-    Cells[0,4] := 'GameName';
-end; }
+  with SLGrid do
+  begin
+    Cells[0,0] := 'Username:'
+  end;
+end;
 
 end.

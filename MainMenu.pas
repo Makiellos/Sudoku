@@ -9,17 +9,14 @@ uses
 type
   TMainMenuForm = class(TForm)
     MMBtnNewGame: TBitBtn;
-    MMBtnSavedGame: TBitBtn;
-    MMBtnRating: TBitBtn;
-    MMBtnRules: TBitBtn;
+    MMBtnList: TBitBtn;
     MMBtnAbout: TBitBtn;
     MMImgCopyleft: TImage;
     MMFieldImg: TImage;
     MMLabel: TLabel;
     MMRightsLabel: TLabel;
     procedure MMBtnNewGameClick(Sender: TObject);
-    procedure MMBtnSavedGameClick(Sender: TObject);
-    procedure MMBtnRatingClick(Sender: TObject);
+    procedure MMBtnListClick(Sender: TObject);
     procedure MMBtnRulesClick(Sender: TObject);
     procedure MMBtnAboutClick(Sender: TObject);
   private
@@ -33,7 +30,7 @@ var
 
 implementation
 
-uses DifficultyLvl, SavedGame, Rating, Rules, About;
+uses DifficultyLvl, SavedGame, Rating, Rules, About, SavedList;
 
 {$R *.dfm}
 
@@ -43,16 +40,10 @@ begin
   DifficultyLvlForm.Show;
 end;
 
-procedure TMainMenuForm.MMBtnSavedGameClick(Sender: TObject);
+procedure TMainMenuForm.MMBtnListClick(Sender: TObject);
 begin
   Hide;
-  SavedGameForm.Show;
-end;
-
-procedure TMainMenuForm.MMBtnRatingClick(Sender: TObject);
-begin
-  Hide;
-  RatingForm.Show;
+  SavedListForm.Show;
 end;
 
 procedure TMainMenuForm.MMBtnRulesClick(Sender: TObject);

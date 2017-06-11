@@ -1,6 +1,6 @@
 object NewGameForm: TNewGameForm
-  Left = 446
-  Top = 161
+  Left = 488
+  Top = 222
   Width = 791
   Height = 483
   Caption = 'NewGameForm'
@@ -11,6 +11,7 @@ object NewGameForm: TNewGameForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
