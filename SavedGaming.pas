@@ -8,6 +8,27 @@ uses
   LogIn, StdCtrls, Buttons;
 
 type
+//  TSavedSudoku = record
+//    Name: ShortString;
+//    DiffLvl: Integer;
+//    DateGame: TDateTime;
+//    MatrixOne, MatrixTwo, MatrixThree: TArrSudoku;
+//  end;
+  TPtList = ^TRList;
+  TRList = record
+//  razbudit' v 16.20!!!!!!!!!!!!!!!!!!!
+    List: TSavedSudoku;
+    Next: TPtList;
+  end;
+  TList = class
+    FList: TPtList;
+    constructor Create;
+    procedure Insert(const SavedSudoku: TSavedSudoku);
+    function IsEmpty: Boolean;
+    function GetSize: Integer;
+    property Empty: Boolean read IsEmpty;
+    property Size: Integer read GetSize;
+  end;
   TSavedGamingForm = class(TForm)
     SGMainImg: TImage;
     SavedSudGrid: TStringGrid;
@@ -32,6 +53,58 @@ uses SavedList;
 
 {$R *.dfm}
 
+constructor TList.Create;
+begin
+  New(FList);
+  FList^.Next := nil;
+end;
+
+function TList.IsEmpty: Boolean;
+begin
+  if FList^.List.Name = '' then
+    Result := True
+  else
+    Result := False;
+end;
+
+function TList.GetSize: integer;
+var
+  L: TPtList;
+begin
+  L := FList;
+  Result := 0;
+  if not Empty then
+    repeat
+      inc(Result);
+      L := L^.Next;
+    until L = nil;
+end;
+
+procedure TList.Insert(const SavedSudoku: TSavedSudoku);
+var
+  L: TPtList;
+  i: integer;
+begin
+  if FList^.List.Name = '' then
+  begin
+    FList^.List := SavedSudoku;
+  end
+  else
+  begin
+    L := FList;
+    for i := 1 to Size do
+    begin
+      if i = Size then
+      begin
+        New(L^.Next);
+        L^.Next^.List := SavedSudoku;
+      end
+      else
+        L := L^.Next;
+    end;
+  end;
+end;
+
 procedure TSavedGamingForm.FormShow(Sender: TObject);
 
 procedure SavedSudGridDrawCell(ACol, ARow: Integer);
@@ -49,6 +122,14 @@ begin
   Image.Height := 41;
   Image.Stretch := true;
   Image.Transparent := true;
+end;
+
+procedure SortSavedSudoku(var SudokuList);
+var
+  i: integer;
+  L: TPtList;
+begin
+  
 end;
 
 var
