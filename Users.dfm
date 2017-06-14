@@ -1,6 +1,6 @@
 object UsersForm: TUsersForm
-  Left = 0
-  Top = 0
+  Left = 546
+  Top = 227
   BorderStyle = bsDialog
   Caption = 'UsersForm'
   ClientHeight = 266

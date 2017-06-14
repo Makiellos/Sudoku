@@ -1,1 +1,13 @@
 This program allows you to play Sudoku, save the game and continue playing later. Enjoy!
+
+This program is multipersonal, so you can let your friends join with you.
+
+Tired of playing? Not a problem! Just save your game and play later.
+
+
+Developer:
+Svetlana Naumchik
+
+For all questions write me a letter:
+lananaumchik@gmail.com
+

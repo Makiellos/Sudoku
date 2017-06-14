@@ -1,6 +1,6 @@
 object RulesForm: TRulesForm
-  Left = 582
-  Top = 180
+  Left = 562
+  Top = 277
   Width = 368
   Height = 480
   Align = alCustom
@@ -12,6 +12,7 @@ object RulesForm: TRulesForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96

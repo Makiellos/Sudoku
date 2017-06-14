@@ -1,6 +1,6 @@
 object SignUpForm: TSignUpForm
-  Left = 474
-  Top = 187
+  Left = 463
+  Top = 293
   Width = 363
   Height = 316
   Caption = 'SignUpForm'
@@ -11,6 +11,7 @@ object SignUpForm: TSignUpForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -87,22 +88,13 @@ object SignUpForm: TSignUpForm
     ParentFont = False
     TabOrder = 4
   end
-  object btn1: TButton
-    Left = 32
-    Top = 32
-    Width = 49
-    Height = 33
-    Caption = 'btn1'
-    TabOrder = 5
-    OnClick = btn1Click
-  end
   object btnConfirmTheReg: TButton
     Left = 163
     Top = 224
     Width = 121
     Height = 33
     Caption = 'Confirm'
-    TabOrder = 6
+    TabOrder = 5
     OnClick = btnConfirmTheRegClick
   end
   object btnBack: TButton
@@ -111,7 +103,6 @@ object SignUpForm: TSignUpForm
     Width = 121
     Height = 33
     Caption = 'Back'
-    TabOrder = 7
-    OnClick = btnBackClick
+    TabOrder = 6
   end
 end

@@ -13,15 +13,14 @@ type
     SUPasswordMask: TMaskEdit;
     SUTextLogin: TStaticText;
     SUTextPassword: TStaticText;
-    btn1: TButton;
     btnConfirmTheReg: TButton;
     btnBack: TButton;
     procedure btn1Click(Sender: TObject);
     procedure btnConfirmTheRegClick(Sender: TObject);
     procedure SULoginMaskClick(Sender: TObject);
     procedure SUPasswordMaskClick(Sender: TObject);
-    procedure btnBackClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnBackClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,8 +49,7 @@ procedure TSignUpForm.btnConfirmTheRegClick(Sender: TObject);
 begin
     LoginUser:=Trim(SULoginMask.Text);
     PassUser:=Trim(SUPasswordMask.Text);
-    if (TestCorrect(LoginUser)and TestCorrect(PassUser))
-    then
+    if (TestCorrect(LoginUser)and TestCorrect(PassUser)) then
     begin
       if TestOnLog(LogAndPasList,LoginUser) then
         begin
@@ -63,7 +61,7 @@ begin
         end
       else
         MessageBox(Handle,PChar('Login or password included invalid characters'),PChar('Error'),(MB_OK+MB_ICONERROR));
-  end;
+    end;
 end;
 
 procedure TSignUpForm.FormCreate(Sender: TObject);
@@ -74,7 +72,7 @@ end;
 
 procedure TSignUpForm.btnBackClick(Sender: TObject);
 begin
-  Close;
+  Hide;
   SignLogForm.Show;
 end;
 

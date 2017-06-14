@@ -30,6 +30,7 @@ type
     procedure SLGridMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure SLSortBtnClick(Sender: TObject);
+    procedure FullSavedSudoku(var SudokuList: TList);
   private
     { Private declarations }
   public
@@ -105,27 +106,19 @@ begin
   end;
 end;
 
-procedure TSavedListForm.FormShow(Sender: TObject);
-
-procedure SortSavedSudoku(var SudokuList);
+procedure TSavedListForm.FullSavedSudoku(var SudokuList: TList);
 var
   i: integer;
   L: TPtList;
-begin
-
-end;
-
-var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
   counter, RowN: Integer;
   P: string;
-
 begin
-  P:=getcurrentdir;
+    P:=getcurrentdir;
   If not (P = 'E:\progs\sudoku_new\sudoku\Sudoku\'+LogUser) then
   Chdir(LogUser);
-  with SLGrid do
+  with SavedListForm.SLGrid do
   begin
     Cells[0,0] := 'Date:';
     Cells[1,0] := 'Name of the game:';
@@ -140,9 +133,9 @@ begin
     Reset(F);
     Read(F,SaveSudoku);
 
-    with SLGrid do
+    with SavedListForm.SLGrid do
     begin
-      SLGrid.RowCount:=SLGrid.RowCount+1;
+      RowCount:=RowCount+1;
       Cells[0, RowN] := DateToStr(SaveSudoku.DateGame);
       Cells[1, RowN] := LogUser + IntToStr(counter);
       case SaveSudoku.DiffLvl of
@@ -157,6 +150,11 @@ begin
     inc(counter);
     inc(RowN);
   end;
+end;
+
+procedure TSavedListForm.FormShow(Sender: TObject);
+begin
+  FullSavedSudoku(SudokuList);
 end;
 
 procedure TSavedListForm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -176,7 +174,6 @@ begin
 end;
 
 procedure TSavedListForm.SLSortBtnClick(Sender: TObject);
-
 var
   tmp,x:TPtList;
   tmps:TSavedSudoku;
@@ -202,7 +199,6 @@ begin
   x := SudokuList.FList;
   for counter := 1 to SudokuList.Size do
   begin
-
     with SLGrid do
     begin
       Cells[0, RowN] := DateToStr(x^.List.DateGame);

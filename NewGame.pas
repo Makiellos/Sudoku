@@ -43,7 +43,7 @@ uses
 
 procedure TNewGameForm.FormShow(Sender: TObject);
 
-procedure BasicRowGenetate();
+procedure BasicRowGenerate;
 var i, k, temp: Integer;
 begin
   with NewGameForm.NewSudokuGrid do
@@ -176,7 +176,6 @@ end;
 
 procedure NewSudokuGridDrawCell(ACol, ARow: Integer);
 var
-  //Image: TImage;
   x, y: integer;
 begin
   Image := TImage.Create(Self);
@@ -193,7 +192,7 @@ end;
 
 procedure RandomHide(Col, Row, count: integer );
 var
-  tempCount, tempCol, tempRow, temp, i, j, n: Integer;
+  temp, i, j, tempCount: Integer;
 begin
   tempCount := 0;
   for i:=Col to Col+2 do
@@ -220,8 +219,6 @@ begin
 end;
 
 procedure HideCells;
-var
-  temp, i, j, tempCol, tempRow, tempCount: Integer;
 begin
   if DifficultyLvlForm.DiffEasy then
   begin
@@ -302,7 +299,7 @@ var
 begin
   Randomize;
 
-  BasicRowGenetate();
+  BasicRowGenerate;
   NewNextRow(1);
   NewNextRow(2);
 
@@ -399,7 +396,7 @@ begin
   end;
 end;
 
-procedure TNewGameForm.NGSaveBtnClick(Sender: TObject);
+procedure SaveTheGame (Sender: TObject);
 var
   SaveSudoku: TSavedSudoku;
   F: file of TSavedSudoku;
@@ -435,26 +432,21 @@ begin
   CloseFile(F);
 end;
 
+procedure TNewGameForm.NGSaveBtnClick(Sender: TObject);
+var
+  SaveSudoku: TSavedSudoku;
+  F: file of TSavedSudoku;
+  counter, i, j: Integer;
+  P: string;
+begin
+  SaveTheGame(NewSudokuGrid);
+end;
+
 procedure TNewGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
 var i, j:Integer;
     c:TControl;
 begin
-  //for i:=0 to 8 do
-   // for j:=0 to 8 do
-   // Image.Picture := nil;
- // MainMenuForm.Show;
-
-  for i := 0 to 8 do
-    for j:=0 to 8 do
-    begin
-      c := self.Controls[i];
-      if c is TImage then
-      begin
-        c.Parent := nil;
-        c.Free;
-      end;
-    end;
-Self.Close;
+  MainMenuForm.Show;
 end;
 
 end.

@@ -26,14 +26,11 @@ type
 var
   SavedGamingForm: TSavedGamingForm;
   matrixA, matrixB, matrixC: TArrSudoku;
-  matrA, matrB, matrC: TArrSudoku;
 implementation
 
 uses SavedList;
 
 {$R *.dfm}
-
-
 
 procedure TSavedGamingForm.FormShow(Sender: TObject);
 
@@ -165,9 +162,6 @@ procedure TSavedGamingForm.FormClose(Sender: TObject;
 var
   i,j: integer;
 begin
-  for i:=0 to 8 do
-    for j:=0 to 8 do
-    FreeAndNil(image);
   MainMenuForm.Show;
 end;
 

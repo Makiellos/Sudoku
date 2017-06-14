@@ -1,6 +1,6 @@
 object LogInForm: TLogInForm
-  Left = 470
-  Top = 188
+  Left = 481
+  Top = 308
   Width = 378
   Height = 316
   Caption = 'LogInForm'
@@ -11,6 +11,7 @@ object LogInForm: TLogInForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
